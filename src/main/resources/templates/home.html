@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Boot Thymeleaf + Spring Security</title>
+</head>
+<body>
+<div class="container">
+    Welcome Page!! <br />
+    <div th:switch="${user == undefined}">
+        <p th:case="true"><a href="/oauth2/authorization/google" >login via google</a></p>
+        <div th:case="false">
+            <a href="/profiles" >go to profiles</a> <br />
+            <a href="/projects" >go to projects</a> <br />
+            
+            <form th:action="@{/logout}" method="post" action="/logout" >
+                <input type="submit" value="logout" />
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

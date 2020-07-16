@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Boot Thymeleaf + Spring Security</title>
+</head>
+<body>
+<div class="container">
+    Specific Profile Page!!
+
+    Hello <p th:text="${user.username}" /> <br />
+    Introduction: <p th:text="${user.introduction}" />
+    <div th:if="${user.email == currentUser.email}">
+        <a th:href="@{/profiles/{username}/edit(username=${user.username})}">Edit Profile</a>
+    </div>
+</div>
+</body>
+</html>
+

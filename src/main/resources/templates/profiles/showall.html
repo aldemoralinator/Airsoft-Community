@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Boot Thymeleaf + Spring Security</title>
+</head>
+<body>
+<div class="container">
+    All Profile Page!!
+
+    <ul th:each="user :${users}">
+        <li>
+            <div>
+                <a
+                    th:href="@{/profiles/{username}(username=${user.username})}"
+                    th:text="${user.email}"
+                />
+
+                <span th:if="${!(currentUser == null) && (user.email == currentUser.email)}">
+                    <a
+                        th:href="@{/profiles/{username}/edit(username=${user.username})}"
+                        th:text="edit"
+                    />
+                </span>
+            </div>
+        </li>
+    </ul>
+
+</div>
+</body>
+</html>
+

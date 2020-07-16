@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Boot Thymeleaf + Spring Security</title>
+</head>
+<body>
+<div class="container">
+    All Projects Page!!
+    <br />
+    <a href="/projects/create" >go to project creation</a> <br />
+    <ul th:each="project :${projects}">
+        <li>
+            <div>
+                <a
+                    th:href="@{/projects/{slug}(slug=${project.slug})}"
+                    th:text="${project.name}"
+                />
+                 
+                
+                <div th:if="${#lists.contains(currentUser.subscriptions, project)}">
+                    <a th:href="@{/projects/{slug}/edit(slug=${project.slug})}">Edit Project</a>
+                </div>
+
+            </div>
+        </li>
+    </ul>
+
+</div>
+</body>
+</html>
+
