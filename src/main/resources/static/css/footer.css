@@ -1,0 +1,9 @@
+.footer__component {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.6em;
+    background-color: var(--light-blue);
+    color: var(--white);
+    padding: 0.1em;
+}

@@ -1,22 +1,16 @@
 package com.aldem.simpleapp.controller;
 
 import com.aldem.simpleapp.model.User;
-import com.aldem.simpleapp.repository.ProjectRepository;
 import com.aldem.simpleapp.repository.UserRepository;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping; 
+import org.springframework.web.server.ResponseStatusException; 
+import com.aldem.simpleapp.repository.GuildRepository;
 
 @Controller
 public class InvitationController 
@@ -25,7 +19,7 @@ public class InvitationController
     private UserRepository userRepository;
 
     @Autowired
-    private ProjectRepository projectRepository;
+    private GuildRepository guildRepository;
 
     @GetMapping("/invitations")
     public String all(
@@ -33,15 +27,14 @@ public class InvitationController
         Model model
     ) {
         try {
-
-            if (!(principal == null)) {
-                User currentUser = userRepository.findByEmail(principal.getAttribute("email"));
-                model.addAttribute("currentUser", currentUser);
-            }
-
+            
+            User currentUser = userRepository.findByEmail(principal.getAttribute("email"));
+            
             List<User> users = userRepository.findAll();
 
-            if (users != null) model.addAttribute("users", users);
+            model.addAttribute("users", users);
+            
+            model.addAttribute("currentUser", currentUser);
 
             return "profiles/showall";
 

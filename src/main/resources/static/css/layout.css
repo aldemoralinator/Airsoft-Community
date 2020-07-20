@@ -1,0 +1,83 @@
+html, body {
+    font-family: 'Roboto', sans-serif; 
+    margin: 0;
+    font-size: 18px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: var(--white);
+    color: var(--dark-blue);
+}
+
+:root {
+  --dark-blue: #414956;
+  --light-blue: #9dbce1;
+  --light-grey: #bfcbc8;
+  --dark-brown: #6f655a;
+  --brown: #87705f;
+  --white: #fff;
+  --lime: lime;
+}
+
+*, *:before, *:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgb(223, 230, 233);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 50px;
+    background: rgb(119, 131, 136);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(75, 82, 85);
+}
+
+.layout-component {
+    max-width: 1200px;
+    min-height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media only screen and (min-width: 768px) {
+    body {
+        font-size: 21px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    body {
+        font-size: 23px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    body {
+        font-size: 25px;
+    }
+}

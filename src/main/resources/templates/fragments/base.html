@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns="http://www.w3.org/1999/xhtml"
+    th:fragment="base(title, links, content)"
+>
+<head >
+    
+    <title th:replace="${title}">SimpleApp</title>
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+    
+    <link 
+        rel="icon" 
+        th:href="@{/static/images/favicon.png}" 
+        type="image/gif" 
+        sizes="64x64" />
+    
+    <link 
+        rel="stylesheet" 
+        th:href="@{/static/css/reset.css}" 
+        type="text/css" />
+    
+    <link 
+        rel="stylesheet" 
+        th:href="@{/static/css/layout.css}" 
+        type="text/css" />
+    
+    <th:block th:replace="${links}" />
+    
+    <link 
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;900&display=swap" 
+        rel="stylesheet">
+    
+</head>
+<body>
+    <div class="layout-component">
+        <div th:replace="${content}" /> 
+    </div>
+</body>
+</html>

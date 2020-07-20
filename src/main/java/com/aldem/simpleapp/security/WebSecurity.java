@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser; 
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @EnableWebSecurity
@@ -23,14 +23,18 @@ public class WebSecurity extends WebSecurityConfigurerAdapter
     {
         http
             .authorizeRequests(a -> a
-                .antMatchers("/", "/error", "/webjars/**").permitAll()
+                .antMatchers(
+                    "/", "/error", "/webjars/**", "/static/**"
+                ).permitAll()
                 .anyRequest().authenticated()
             )
             .logout(l -> l
                 .logoutSuccessUrl("/").permitAll()
             )
             .csrf(c -> c
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .csrfTokenRepository(
+                    CookieCsrfTokenRepository.withHttpOnlyFalse()
+                )
             )
             .oauth2Login(oauth2 -> oauth2
                 .loginPage("/oauth2/authorization/google")

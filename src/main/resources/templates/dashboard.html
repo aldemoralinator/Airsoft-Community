@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" 
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns="http://www.w3.org/1999/xhtml"
+    th:replace="fragments/layout :: 
+        layout(~{::title}, ~{::link}, ~{::dashboard}, ${currentUser})">
+<head >
+    
+    <title th:fragment="title">DASHBOARD</title>
+
+    <link  
+        th:fragment="link"
+        rel="stylesheet" 
+        th:href="@{/static/css/dashboard.css}" 
+        type="text/css" />
+    
+</head>
+<body>
+<div class="main" th:fragment="dashboard">
+    
+    THIS IS THE DASHBOARD PAGE
+    
+<!--    <div class="container">
+        <div th:replace="fragments/lists/guildlist :: guildlist(guilds=${guilds})" />
+        <div th:replace="fragments/lists/eventlist :: eventlist(events=${events})" />
+        <div th:replace="fragments/lists/playerlist :: playerlist(players=${players})" />
+    </div>-->
+    
+</div>
+</body>
+</html>

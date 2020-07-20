@@ -1,22 +1,31 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Spring Boot Thymeleaf + Spring Security</title>
+<!DOCTYPE html>
+<html lang="en" 
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns="http://www.w3.org/1999/xhtml"
+    th:replace="fragments/base :: base(~{::title}, ~{::link}, ~{::home})">
+<head >
+    
+    <title th:fragment="title">HOME</title>
+
+    <link  
+        th:fragment="link"
+        rel="stylesheet" 
+        th:href="@{/static/css/home.css}" 
+        type="text/css" />
+    
 </head>
 <body>
-<div class="container">
-    Welcome Page!! <br />
-    <div th:switch="${user == undefined}">
-        <p th:case="true"><a href="/oauth2/authorization/google" >login via google</a></p>
-        <div th:case="false">
-            <a href="/profiles" >go to profiles</a> <br />
-            <a href="/projects" >go to projects</a> <br />
-            
-            <form th:action="@{/logout}" method="post" action="/logout" >
-                <input type="submit" value="logout" />
-            </form>
-        </div>
-    </div>
+<div class="main" th:fragment="home">
+    
+    <h1 class="main-header">Philippine Airsoft Community</h1>
+    <h2 class="intro-header">Airsoft Event Platform</h2>
+    <a class="login" href="/oauth2/authorization/google" >
+        join <span class="login__google">via google</span>
+    </a>
+    <h3 class="header">
+        Join Now, Find an Event, Register, and Get Ready for Battle
+    </h3>
+    
 </div>
 </body>
 </html>

@@ -1,0 +1,40 @@
+.header__component {
+    display: flex;
+    font-size: 0.8em;
+    align-content: center;
+    padding: 0.3em;
+    background-color: var(--dark-blue);
+    color: var(--white);
+}
+
+.header__link {
+    margin-right: 0.3em;
+    color: var(--white);
+    padding: 0.3em;
+}
+
+.header__link:hover {
+    color: var(--lime);
+}
+
+.header__logout {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header__logout__submit {
+    border: 1px solid var(--white);
+    border-radius: 0.3em;
+    background-color: transparent;
+    color: var(--white);
+    padding: 0 1em;
+    font-size: 0.8em;
+    font-weight: 700;
+}
+
+.header__logout__submit:hover {
+    border: 1px solid var(--lime);
+    color: var(--lime);
+    cursor: pointer;
+}
