@@ -2,6 +2,7 @@ package com.aldem.simpleapp.interceptor;
 
 import com.aldem.simpleapp.model.User;
 import com.aldem.simpleapp.repository.UserRepository;
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,13 +28,14 @@ public class AddCurrentUserInterceptor implements HandlerInterceptor
         ModelAndView modelAndView
     ) throws Exception 
     {
+            
         if (request.getMethod().equals("GET")) {
             HttpServletRequest req = (HttpServletRequest) request;
-            
+
             HttpSession session = req.getSession(false);
-            
+
             if (session != null) {
-                
+
                 SecurityContextImpl ctx = 
                 (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
 
@@ -42,16 +44,16 @@ public class AddCurrentUserInterceptor implements HandlerInterceptor
                     OAuth2AuthenticatedPrincipal principal = 
                     (OAuth2AuthenticatedPrincipal) ctx.getAuthentication().getPrincipal();
 
-                    if (principal != null) {
-                        
-                        User currentUser = userRepository
-                                .findByEmail(principal.getAttribute("email"));
-                        
-                        System.out.println(currentUser.toString());
-                        modelAndView.addObject("currentUser", currentUser);
-                    }   
+
+                    String openId = principal.getName();
+
+                    User currentUser = 
+                        userRepository.findByOpenId(openId);
+
+                    modelAndView.addObject("currentUser", currentUser);               
+
                 }
-            }
-        }
-    }    
+            }     
+        }   
+    } 
 }

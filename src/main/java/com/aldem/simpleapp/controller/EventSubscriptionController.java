@@ -1,46 +1,51 @@
 package com.aldem.simpleapp.controller;
 
-import com.aldem.simpleapp.model.User;
 import com.aldem.simpleapp.repository.UserRepository;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping; 
 import org.springframework.web.server.ResponseStatusException; 
-import com.aldem.simpleapp.repository.GuildRepository;
+import com.aldem.simpleapp.repository.EventRepository;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class InvitationController 
+public class EventSubscriptionController 
 {
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private GuildRepository guildRepository;
+    private EventRepository eventRepository;
 
-    @GetMapping("/invitations")
-    public String all(
+    @PostMapping("/events/{slug}/join")
+    public ModelAndView applyForSubscription(
         @AuthenticationPrincipal OAuth2User principal,
         Model model
     ) {
         try {
             
-            User currentUser = userRepository.findByEmail(principal.getAttribute("email"));
+            // TODO :: add logic here...
             
-            List<User> users = userRepository.findAll();
-
-            model.addAttribute("users", users);
-            
-            model.addAttribute("currentUser", currentUser);
-
-            return "profiles/showall";
-
+            return new ModelAndView("redirect:/dashboard");
+        
         } catch (ResponseStatusException e) {
             throw new ResponseStatusException(e.getStatus(), e.getMessage());
         }
+    }
+    
+    @PostMapping("/events/{slug}/users/{openId}/approve")
+    public ModelAndView all(
+        @AuthenticationPrincipal OAuth2User principal,
+        @RequestParam(name="isApprove", required=true) boolean isApprove,
+        Model model
+    ) {
+
+        return new ModelAndView("redirect:/dashboard");
+
     }
 
 //    @GetMapping("/profiles/{username}")

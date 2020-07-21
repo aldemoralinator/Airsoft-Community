@@ -13,9 +13,9 @@ import lombok.ToString;
 
 
 @Entity
-@Table(name = "guild_user")
+@Table(name = "event_user")
 @ToString @EqualsAndHashCode
-public class Subscription 
+public class EventSubscription 
 {
     @Id
     @GeneratedValue
@@ -26,18 +26,26 @@ public class Subscription
     @Getter @Setter private User user;
     
     @ManyToOne
-    @JoinColumn(name = "guild_id")
-    @Getter @Setter private Guild guild;
+    @JoinColumn(name = "event_id")
+    @Getter @Setter private Event event;
     
-    @Getter @Setter private boolean isPending;
+    @Getter @Setter private boolean isUserConfirm;
+    
+    @Getter @Setter private boolean isManagerConfirm;
 
-    public Subscription() {
+    public EventSubscription() {
     }
 
-    public Subscription(User user, Guild guild, boolean isPending) {
+    public EventSubscription(
+        User user, 
+        Event event, 
+        boolean isUserConfirm,
+        boolean isManagerConfirm
+    ) {
         this.user = user;
-        this.guild = guild;
-        this.isPending = isPending;
+        this.event = event;
+        this.isUserConfirm = isUserConfirm;
+        this.isManagerConfirm = isManagerConfirm;
     }
 
 }

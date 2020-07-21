@@ -14,7 +14,10 @@ public class User
 {
     @Id
     @GeneratedValue
-    @Getter private Long id;
+    @Getter @Setter private Long id;
+    
+    @Column(unique = true)
+    @Getter @Setter private String openId;
 
     @Column(unique = true, length = 30)
     @Getter @Setter private String username;
@@ -23,14 +26,18 @@ public class User
     @Getter @Setter private String email;
 
     @Getter @Setter private String introduction;
+    
+    @OneToMany(mappedBy = "creator")
+    @Getter @Setter private Set<Event> createdEvents;
 
     @OneToMany(mappedBy = "user")
-    @Getter @Setter private Set<Subscription> subscriptions;
+    @Getter @Setter private Set<EventSubscription> eventSubscriptions;
 
     public User() {
     }
 
-    public User(String username, String email) {
+    public User(String openId, String username, String email) {
+        this.openId = openId;
         this.username = username;
         this.email = email;
     }

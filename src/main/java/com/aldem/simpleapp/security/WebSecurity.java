@@ -49,11 +49,15 @@ public class WebSecurity extends WebSecurityConfigurerAdapter
 
         return (userRequest -> {
             OidcUser oidcUser = delegate.loadUser(userRequest);
-
-            if (userRepository.findByEmail(oidcUser.getEmail()) == null) {
-                String [] splitStr = oidcUser.getEmail().split("@");
-                userRepository.save(new User(splitStr[0], oidcUser.getEmail()));
+            
+            String openId = oidcUser.getName();
+            
+            if (!userRepository.existsByOpenId(openId)) {
+                String email = oidcUser.getEmail();
+                String username = email.split("@")[0];
+                userRepository.save(new User(openId, username, oidcUser.getEmail()));
             }
+                
 
             return oidcUser;
         });

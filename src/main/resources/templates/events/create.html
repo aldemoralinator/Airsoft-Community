@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" 
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns="http://www.w3.org/1999/xhtml"
+    th:replace="fragments/base :: base(~{::title}, ~{::link}, ~{::main})">
+<head >
+    
+    <title th:fragment="title">CREATE EVENT</title>
+
+    <link  
+        th:fragment="link"
+        rel="stylesheet" 
+        th:href="@{/static/css/create-event.css}" 
+        type="text/css" />
+    
+    <link  
+        th:fragment="link"
+        rel="stylesheet" 
+        th:href="@{/static/css/create-event-form.css}" 
+        type="text/css" />
+    
+</head>
+<body>
+<div class="main" th:fragment="main">
+    
+    <div class="create-event">
+        
+        <a href="/dashboard" class="create-event__dashboard-link" >go to dashboard</a>
+        
+        <div class="create-event__form-box">
+        
+            <h1 class="create-event__form-box__header">Create Event</h1>
+
+            <div th:replace="fragments/forms/create-event-form:: create-event-form" />
+            
+        </div>
+    </div>
+    
+</div>
+</body>
+</html>

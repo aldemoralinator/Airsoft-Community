@@ -1,3 +1,5 @@
-<div th:fragment="playerList">
-
+<div th:fragment="playerlist" th:each="eventSub : ${eventSubs}">
+    <div>
+        <div th:text="${eventSub.user.email}"></div>
+    </div>
 </div>

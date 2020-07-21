@@ -3,7 +3,7 @@
     xmlns:th="http://www.thymeleaf.org"
     xmlns="http://www.w3.org/1999/xhtml"
     th:replace="fragments/layout :: 
-        layout(~{::title}, ~{::link}, ~{::dashboard}, ${currentUser})">
+        layout(~{::title}, ~{::link}, ~{::main}, ${currentUser})">
 <head >
     
     <title th:fragment="title">DASHBOARD</title>
@@ -16,16 +16,33 @@
     
 </head>
 <body>
-<div class="main" th:fragment="dashboard">
+<div class="main" th:fragment="main">
     
-    THIS IS THE DASHBOARD PAGE
+    <div class="options-box">
+        <div class="options-box__filter">all</div>
+        <div class="options-box__filter">my events</div>
+        <a class="options-box__create" href="/events/create" >
+            create
+        </a>    
+    </div>
     
-<!--    <div class="container">
-        <div th:replace="fragments/lists/guildlist :: guildlist(guilds=${guilds})" />
-        <div th:replace="fragments/lists/eventlist :: eventlist(events=${events})" />
-        <div th:replace="fragments/lists/playerlist :: playerlist(players=${players})" />
-    </div>-->
     
+    <div class="main-box">
+        
+        <div class="main-box__events">
+            <h2 class="main-box__header">Events</h2>
+            <div th:replace="fragments/lists/eventlist :: eventlist(events=${events})" />
+        </div>
+        
+        <div class="main-box__player">
+            <h2 class="main-box__header">Players</h2>
+            
+            <div th:if="${eventSubs}">
+                <div th:replace="fragments/lists/playerlist :: playerlist(eventSubs=${eventSubs})" />
+            </div>
+        </div>
+            
+    </div>
 </div>
 </body>
 </html>

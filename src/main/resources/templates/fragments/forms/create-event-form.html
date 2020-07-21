@@ -1,0 +1,28 @@
+<form
+    class="create-event__form"
+    th:action="@{/events}"
+    method="post"
+    th:fragment="create-event-form"
+>
+    <div class="form-group">
+        Event Name <input class="form-input" type="text" name="name" th:required="required" />
+    </div>
+    
+    <div class="form-group">
+        Location: <input class="form-input" type="text" name="location" th:required="required" />
+    </div>
+    
+    <div class="form-group">
+        Description:
+    
+        <textarea 
+            class="form-input"  
+            rows = "3" 
+            cols = "30" 
+            name="description" 
+        ></textarea>
+    </div>
+    
+    <input class="form-submit" type="submit" value="create event"  />
+
+</form>

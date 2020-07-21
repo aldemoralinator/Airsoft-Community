@@ -30,10 +30,10 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer
         
         registry.addInterceptor(corsInterceptor).addPathPatterns("/**");
         
-        registry
-                .addInterceptor(addCurrentUserInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/");
+        registry.addInterceptor(addCurrentUserInterceptor)
+                .addPathPatterns("/")
+                .addPathPatterns("/dashboard/**")
+                .addPathPatterns("/events/**");
     }
 
     @Override

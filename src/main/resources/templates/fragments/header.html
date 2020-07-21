@@ -1,7 +1,5 @@
 <header class="header__component" th:fragment="header(currentUser)">
-    <a href="/dashboard" class="header__link" >PhASC</a>
-    <a href="/profiles" class="header__link" th:text="${currentUser.username}" />
-    <a href="/profiles" class="header__link" >friends</a>
+    <a href="/dashboard" class="header__link" >PhIlippine Airsoft Community</a>
     <form class="header__logout" th:action="@{/logout}" method="post" action="/logout" >
         <input class="header__logout__submit" type="submit" value="logout" />
     </form>

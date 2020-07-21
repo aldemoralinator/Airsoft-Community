@@ -13,10 +13,12 @@ html, body {
   --dark-blue: #414956;
   --light-blue: #9dbce1;
   --light-grey: #bfcbc8;
+  --blue: #7d9cc1;
   --dark-brown: #6f655a;
   --brown: #87705f;
   --white: #fff;
   --lime: lime;
+  --orange: orange;
 }
 
 *, *:before, *:after {

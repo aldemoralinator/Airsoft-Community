@@ -1,4 +1,54 @@
 .main {
     flex: 1;
-    
+    display: flex;
+    flex-direction: column;
+    padding: 1em 0;
 }
+
+.options-box {    
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid var(--light-blue);
+    padding-bottom: 0.3em;
+    margin-bottom: 0.3em;
+}
+
+.options-box__filter {
+    border: 1px solid var(--light-blue);
+    border-radius: 0.3em;
+    margin-right: 1em;
+    padding: 0.3em 1em;
+    font-weight: 700;
+    color: var(--light-blue);
+}
+
+.options-box__filter:hover {
+    box-shadow: 0 0 0.3em;
+    cursor: pointer;
+}
+
+.options-box__create {
+    color: var(--orange);
+}
+
+.options-box__create:hover {
+    font-size: 1.1em;
+}
+
+.main-box {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+}
+
+.main-box__header {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--dark-blue);
+    margin-bottom: 0.5em;
+}
+
+.main-box__events {
+    padding-right: 2em;
+}
+
+

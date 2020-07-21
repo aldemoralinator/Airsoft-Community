@@ -1,0 +1,31 @@
+.main {  
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-event {
+    width: 320px;
+}
+
+.create-event__dashboard-link {
+    font-size: 0.8em;
+    font-weight: 700;
+    color: var(--light-blue);
+}
+
+.create-event__form-box {
+    border: 1px solid var(--dark-blue);
+    margin: 0.3em 0;
+    padding: 0.3em;
+}
+
+.create-event__form-box__header {
+    font-size: 1em;
+    font-weight: 700;
+    color: var(--orange);
+    padding: 0.3em 0;
+    border-bottom: 1px solid var(--dark-blue);
+    margin-bottom: 0.3em;
+}

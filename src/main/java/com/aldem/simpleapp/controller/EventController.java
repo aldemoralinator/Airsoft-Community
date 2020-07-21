@@ -1,102 +1,74 @@
 package com.aldem.simpleapp.controller;
 
-import com.aldem.simpleapp.model.Guild; 
-import com.aldem.simpleapp.model.Subscription;
+import com.aldem.simpleapp.model.Event;
+import com.aldem.simpleapp.model.EventSubscription;
 import com.aldem.simpleapp.model.User;
-import com.aldem.simpleapp.repository.SubscriptionRepository;
 import com.aldem.simpleapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import com.aldem.simpleapp.repository.EventRepository;
+import com.aldem.simpleapp.repository.EventSubscriptionRepository;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-import com.aldem.simpleapp.repository.GuildRepository;
- 
-
 @Controller
-public class GuildController
+public class EventController
 {
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private GuildRepository guildRepository;
+    private EventRepository eventRepository;
     
     @Autowired
-    private SubscriptionRepository subscriptionRepository;
-
-    @GetMapping("/guild")
-    public String all(
+    private EventSubscriptionRepository eventSubscriptionRepository;
+    
+    @GetMapping("/events/create")
+    public String create(
         @AuthenticationPrincipal OAuth2User principal,
         Model model
     ) {
-        try {
-
-            User currentUser = 
-                    userRepository.findByEmail(principal.getAttribute("email"));
-            model.addAttribute("currentUser", currentUser);
-
-            List<Guild> guilds = guildRepository.findAll();
-
-            if (guilds != null) model.addAttribute("projects", guilds);
-
-            return "guilds/showall";
-
-        } catch (ResponseStatusException e) {
-            throw new ResponseStatusException(e.getStatus(), e.getMessage());
-        }
+        return "events/create";
     }
-    
-//    @GetMapping("/guilds/create")
-//    public String create(
-//        @AuthenticationPrincipal OAuth2User principal,
-//        Model model
-//    ) {
-//        return "guilds/create";
-//    }
-//    
-//    @PostMapping("/guilds")
-//    public ModelAndView store(
-//        @AuthenticationPrincipal OAuth2User principal,
-//        @RequestParam(name="name", required=true) String name,
-//        @RequestParam(name="description", required=false) String description,
-//        Model model
-//    ) {
-//        try {
-//            
-//            User currentUser = 
-//                    userRepository.findByEmail(principal.getAttribute("email"));
-//            model.addAttribute("currentUser", currentUser);
-//                
-//            boolean guildExists = guildRepository.existsByName(name);
-//            
-//            Guild newGuild = new Guild(name, description);
-//            guildRepository.save(newGuild);
-//            
-//            if (guildExists) 
-//                newGuild.setSlug(newGuild.getName() + newGuild.getId());
-//            else 
-//                newGuild.setSlug(newGuild.getName());
-//            
-//            guildRepository.save(newGuild);
-//            
-//            Subscription newSubscription = 
-//                    new Subscription(currentUser, newGuild, true);
-//            
-//            subscriptionRepository.save(newSubscription);
-//            
-//            return new ModelAndView(
-//                    "redirect:/guilds/" + newGuild.getSlug());
-//
-//        } catch (ResponseStatusException e) {
-//            throw new ResponseStatusException(e.getStatus(), e.getMessage());
-//        }
-//    }
+ 
+    @PostMapping("/events")
+    public ModelAndView store(
+        @AuthenticationPrincipal OAuth2User principal,
+        @RequestParam(name="name", required=true) String name,
+        @RequestParam(name="location", required=true) String location,
+        @RequestParam(name="description", required=false) String description,
+        Model model
+    ) {
+        // TODO :: MAKE THIS IN TRANSACTION
+        
+        User currentUser = userRepository.findByOpenId(principal.getName());
+        
+        Event newEvent = new Event(name, location, description, currentUser);
+        
+        eventRepository.save(newEvent);
+        
+        if (eventRepository.existsByName(name)) 
+            newEvent.setSlug(newEvent.getName() + newEvent.getId());
+        else 
+            newEvent.setSlug(newEvent.getName());
+        
+        eventRepository.save(newEvent);
+        
+        EventSubscription newEventSubscription = 
+                new EventSubscription(currentUser, newEvent, true, true);
+        
+        eventSubscriptionRepository.save(newEventSubscription);
+
+        // TODO :: MAKE THIS IN TRANSACTION
+        
+        return new ModelAndView("redirect:/dashboard");
+
+    }
 
 //    @GetMapping("/guilds/{slug}")
 //    public String aGuild(
@@ -110,7 +82,7 @@ public class GuildController
 //                    userRepository.findByEmail(principal.getAttribute("email"));
 //            model.addAttribute("currentUser", currentUser);
 //            
-//            Guild guild = guildRepository.findBySlug(slug); 
+//            Event guild = eventRepository.findBySlug(slug); 
 //            
 //            model.addAttribute("guild", guild);
 //
@@ -133,13 +105,13 @@ public class GuildController
 //        System.out.println("################################## executed alasdlfk");
 //        
 //        System.out.println(
-//            subscriptionRepository.existsByUserIdAndProjectId(userId, projectId)
+//            eventSubscriptionRepository.existsByUserIdAndProjectId(userId, projectId)
 //        );
         
-//            Guild project1 = guildRepository.findByName("secondProj");
-//            Guild project2 = guildRepository.findBySlug("asdf");
-//            boolean project3 = guildRepository.existsByName("secondProj");
-//            boolean project4 = guildRepository.existsBySlug("secondProj");
+//            Event project1 = eventRepository.findByName("secondProj");
+//            Event project2 = eventRepository.findBySlug("asdf");
+//            boolean project3 = eventRepository.existsByName("secondProj");
+//            boolean project4 = eventRepository.existsBySlug("secondProj");
             
 //            System.out.println(project1.toString());
 //            System.out.println(project2);

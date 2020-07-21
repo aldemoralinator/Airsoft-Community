@@ -1,3 +1,13 @@
-<div th:fragment="eventlist">
-
+<div 
+    class="eventlist__component"
+    th:fragment="eventlist" 
+    th:each="event : ${events}"
+>
+    <a class="eventlist__link" th:href="@{/dashboard(id=${event.id})}">
+        <div class="eventlist__link__box"> 
+            <div class="eventlist__label">name: <th:block th:text="${event.slug}"></div>
+            <div class="eventlist__label">location: <th:block th:text="${event.location}"></div>
+            <div class="eventlist__label">description: <th:block th:text="${event.description}"></div>
+        </div>
+    </a> 
 </div>

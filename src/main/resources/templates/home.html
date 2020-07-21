@@ -2,7 +2,7 @@
 <html lang="en" 
     xmlns:th="http://www.thymeleaf.org"
     xmlns="http://www.w3.org/1999/xhtml"
-    th:replace="fragments/base :: base(~{::title}, ~{::link}, ~{::home})">
+    th:replace="fragments/base :: base(~{::title}, ~{::link}, ~{::main})">
 <head >
     
     <title th:fragment="title">HOME</title>
@@ -15,7 +15,7 @@
     
 </head>
 <body>
-<div class="main" th:fragment="home">
+<div class="main" th:fragment="main">
     
     <h1 class="main-header">Philippine Airsoft Community</h1>
     <h2 class="intro-header">Airsoft Event Platform</h2>
