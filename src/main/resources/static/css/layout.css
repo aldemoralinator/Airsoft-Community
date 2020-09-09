@@ -12,6 +12,8 @@ html, body {
 :root {
   --dark-blue: #414956;
   --light-blue: #9dbce1;
+  --lightest-blue: #fcfcff;
+  --lighter-blue: #fafaff;
   --light-grey: #bfcbc8;
   --blue: #7d9cc1;
   --dark-brown: #6f655a;

@@ -14,16 +14,25 @@
         th:href="@{/static/css/dashboard.css}" 
         type="text/css" />
     
+    <link  
+        th:fragment="link"
+        rel="stylesheet" 
+        th:href="@{/static/css/eventlist.css}" 
+        type="text/css" />
+    
 </head>
 <body>
 <div class="main" th:fragment="main">
     
     <div class="options-box">
-        <div class="options-box__filter">all</div>
+<!--        <div class="options-box__filter">all</div>
         <div class="options-box__filter">my events</div>
         <a class="options-box__create" href="/events/create" >
             create
-        </a>    
+        </a>    -->
+        <a class="options-box__filter" href="/events/create" >
+            create
+        </a>
     </div>
     
     
@@ -31,7 +40,7 @@
         
         <div class="main-box__events">
             <h2 class="main-box__header">Events</h2>
-            <div th:replace="fragments/lists/eventlist :: eventlist(events=${events})" />
+            <div th:replace="fragments/lists/eventlist :: eventlist(events=${events}, id=${id})" />
         </div>
         
         <div class="main-box__player">

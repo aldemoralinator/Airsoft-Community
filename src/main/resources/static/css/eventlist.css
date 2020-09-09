@@ -1,1 +1,31 @@
+.eventlist__component {
+    padding: 0.6em;
+    background-color: var(--lighest-blue);
+}
+
+.eventlist__component:hover {
+    background-color: var(--ligher-blue);
+}
+
+.eventlist__box__item {
+    margin-bottom: 0.6em;
+    color: var(--light-blue);
+}
+
+.eventlist__box__label {
+    color: var(--dark-blue);
+}
+
+.eventlist__link {
+    font-size: 0.8em;
+    padding: 0.3em 1em;
+    color: var(--lime);
+    border-radius: 0.3em;
+    border: 1px solid var(--lime);
+    background-color: transparent;
+}
+
+.margin-top {
+    margin-top: 10px;
+}
 

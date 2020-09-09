@@ -18,6 +18,8 @@ public class User
     
     @Column(unique = true)
     @Getter @Setter private String openId;
+    
+    @Getter @Setter private String avatarlink;
 
     @Column(unique = true, length = 30)
     @Getter @Setter private String username;

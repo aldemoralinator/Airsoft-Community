@@ -3,11 +3,35 @@
     th:fragment="eventlist" 
     th:each="event : ${events}"
 >
-    <a class="eventlist__link" th:href="@{/dashboard(id=${event.id})}">
-        <div class="eventlist__link__box"> 
-            <div class="eventlist__label">name: <th:block th:text="${event.slug}"></div>
-            <div class="eventlist__label">location: <th:block th:text="${event.location}"></div>
-            <div class="eventlist__label">description: <th:block th:text="${event.description}"></div>
+    <div th:class="eventlist__link__box"  
+         th:classappend="${id == event.id} ? 'active' : 'inactive'"> 
+
+        <div class="eventlist__box__item">
+            <span class="eventlist__box__label">Title: </span>
+            <span th:text="${event.slug}"></span>
         </div>
-    </a> 
+
+        <div class="eventlist__box__item">
+            <span class="eventlist__box__label">Location </span>
+            <span th:text="${event.location}"></span>
+        </div>
+
+        <div class="eventlist__box__item">
+            <span class="eventlist__box__label">Description: </span>
+            <span th:text="${event.description}"></span>
+        </div>
+        
+        <a class="eventlist__link" th:href="@{/dashboard(id=${event.id})}">see players</a> 
+        
+        <form
+            class="margin-top"
+            th:action="@{/events/{slug}/join(slug=${event.slug})}"
+            method="post"
+        >
+            <input class="eventlist__link" type="submit" value="join"  />
+        </form>
+    </div>
+ 
+    
+
 </div>

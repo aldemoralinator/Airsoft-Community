@@ -11,7 +11,6 @@ public class HomeController {
  
     @GetMapping("/") 
     public String index(
-        @AuthenticationPrincipal OAuth2User principal, 
         Model model
     ) {
             

@@ -28,18 +28,21 @@ public class WebSecurity extends WebSecurityConfigurerAdapter
                 ).permitAll()
                 .anyRequest().authenticated()
             )
+            .oauth2Login(oauth2 -> oauth2
+                .loginPage("/oauth2/authorization/google")
+                .userInfoEndpoint()
+                .oidcUserService(this.oidcUserService())
+            )
             .logout(l -> l
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/").permitAll()
             )
             .csrf(c -> c
                 .csrfTokenRepository(
                     CookieCsrfTokenRepository.withHttpOnlyFalse()
                 )
-            )
-            .oauth2Login(oauth2 -> oauth2
-                .loginPage("/oauth2/authorization/google")
-                .userInfoEndpoint()
-                .oidcUserService(this.oidcUserService())
             );
     }
 
@@ -55,10 +58,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter
             if (!userRepository.existsByOpenId(openId)) {
                 String email = oidcUser.getEmail();
                 String username = email.split("@")[0];
-                userRepository.save(new User(openId, username, oidcUser.getEmail()));
+                User newUser = new User(openId, username, oidcUser.getEmail());
+                newUser.setAvatarlink(oidcUser.getAttribute("picture"));
+                userRepository.save(newUser);
             }
                 
-
             return oidcUser;
         });
     }

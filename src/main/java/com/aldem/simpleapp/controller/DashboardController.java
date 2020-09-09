@@ -38,19 +38,25 @@ public class DashboardController
         @AuthenticationPrincipal OAuth2User principal, 
         @RequestParam(name="id", required=false) Long id,
         Model model
-    ) {
-        System.out.println("eventSlug: " + id);
+    ) { 
+        
+        // TODO :: sort by timestamp
+        // TODO :: add query limit events
+        // TODO :: AJAX player list
+        // TODO :: add date, time, timestamp
         
         if (id != null) {
-            List<EventSubscription> eventSubs = eventSubscriptionRepository.findByEventId(3l);
             
-            if (eventSubs != null) {
+            model.addAttribute("id", id);
+            
+            List<EventSubscription> eventSubs = 
+                    eventSubscriptionRepository.findByEventId(id);
+            
+            if (eventSubs != null)
                 model.addAttribute("eventSubs", eventSubs);
-            }
 
         }
-
-        // TODO :: sort by timestamp
+        
         List<Event> events = eventRepository.findAll();
         
         model.addAttribute("events", events);

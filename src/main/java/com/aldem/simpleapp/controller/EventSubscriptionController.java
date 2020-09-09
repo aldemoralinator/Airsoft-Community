@@ -1,5 +1,8 @@
 package com.aldem.simpleapp.controller;
 
+import com.aldem.simpleapp.model.Event;
+import com.aldem.simpleapp.model.EventSubscription;
+import com.aldem.simpleapp.model.User;
 import com.aldem.simpleapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -8,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.server.ResponseStatusException; 
 import com.aldem.simpleapp.repository.EventRepository;
+import com.aldem.simpleapp.repository.EventSubscriptionRepository; 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,21 +26,32 @@ public class EventSubscriptionController
 
     @Autowired
     private EventRepository eventRepository;
+    
+    @Autowired
+    private EventSubscriptionRepository eventSubscriptionRepository;
+    
 
     @PostMapping("/events/{slug}/join")
     public ModelAndView applyForSubscription(
         @AuthenticationPrincipal OAuth2User principal,
+        @PathVariable("slug") String slug,
         Model model
     ) {
-        try {
-            
-            // TODO :: add logic here...
-            
-            return new ModelAndView("redirect:/dashboard");
         
-        } catch (ResponseStatusException e) {
-            throw new ResponseStatusException(e.getStatus(), e.getMessage());
-        }
+        User currentUser = userRepository.findByOpenId(principal.getName());
+
+        Event event = eventRepository.findBySlug(slug);
+        
+        if (event == null) 
+            throw new ResponseStatusException(NOT_FOUND, "event does not exist");
+
+        EventSubscription newEventSubscription = 
+                new EventSubscription(currentUser, event, true, false);
+
+        eventSubscriptionRepository.save(newEventSubscription); 
+
+        return new ModelAndView("redirect:/dashboard");
+
     }
     
     @PostMapping("/events/{slug}/users/{openId}/approve")
